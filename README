@@ -12,19 +12,63 @@ The above copyright notice and this permission notice shall be included in all c
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
          
 
+This plugin converts any set of columns of a HTML table to a CSV file that can then be viewed in a popup window, as a data string, or downloaded as a file.
+
+I had a need for such a utility at my day job (at LectureTools Inc.) and searching netted me only one interesting possibility - the initial plugin that I have built upon. It appears that development on this stopped around June 2009, so I decided to 'fork' it and enhance it. You can find my project here, on my Github account; It has the plugin and a HTML test page.
+
 Dependencies:
-   This plugin was developed using jQuery 1.6.2 and is not tested with other versions
+
+This plugin was developed using jQuery 1.6.2 and is not tested with other versions.
 
 Usage:
-   Include a line such as:
-      <pre>
-	<script src='jquery.table2CSV.js'></script>
-      </pre>
-   In your HTML and then once your HTML table is generated and populated (using appropriate <table>,<thead>,<th>,<tr>,<td>,etc. tags) simply use:
-      <pre>
-         jQuery('#table-id-here').table2CSV();
-      </pre> 
-   for basic use.
 
+Include script file however you need to for your particular project.
 
+HTML:[code]<script src='jquery.table2CSV.js'></script>[/code]
+cakePHP 1.2: [code]echo $javascript->link("jquery.table2CSV.js");[/code]
 
+cakePHP 1.3: [code]echo $html->script('jquery.table2CSV.js');[/code]
+
+Then, simply execute the javascript line [code]jQuery('#table-id').table2CSV();[/code] to use the plugin with the default options.
+
+Options:
+
+separator (Default: ',')
+The character that separates entries in the resulting CSV file.
+
+ 
+
+delivery (Default: 'popup')
+
+The manner in which to return the CSV data file. Options are:
+
+'popup' - opens a new window and displays the CSV data in a box where it can be copied from.
+'value' - returns the CSV data as a single long string
+'download' - triggers a download of a file containing the CSV data
+ 
+
+header (Default: [])
+
+An array containing strings of the column headers
+
+Example: [code] jQuery('#table-id').table2CSV({header:['Name','Mon','Tue','Wed','Thr','Fri']}) [/code]
+
+ 
+
+columns (Default: [])
+
+An array containing strings consisting of the headers for the columns to export. This MUST be a subset of the array passed to the header option.
+
+Example: [code] jQuery('#table-id').table2CSV({header:['Name','Mon','Tue','Wed','Thr','Fri'], columns:['Name','Mon']}) [/code]
+
+This will export only the 'Name' and 'Mon' columns as CSV data.
+
+ 
+
+Important Notes:
+
+1. When using the columns option to only export certain columns, you must also set the header array and the columns array must be a subset of the header array.
+
+2. The javascript .trim() function is called on each table datum, so be aware that beginning or terminating whitespace will be lost.
+
+3. jquery.table2CSV.js is released under the MIT License and LectureTools Inc. retains all copyrights.
