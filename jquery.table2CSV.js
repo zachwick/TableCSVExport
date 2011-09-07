@@ -17,10 +17,8 @@ jQuery.fn.table2CSV = function(options) {
     var headerArr = [];
     var el = this;
     var basic = options.columns.length == 0 ? true : false;
-    console.log(options.columns.length);
-
-    console.log(options.header);
-    console.log(options.columns);
+    var columnNumbers = [];
+    var columnCounter = 0;
 
     //header
     var numCols = options.header.length; 
@@ -32,11 +30,12 @@ jQuery.fn.table2CSV = function(options) {
              tmpRow[tmpRow.length] = formatData(options.header[i]);
           }
        } else if (!basic) {
-	  console.log("In here - not basic");
           for (var o = 0; o < numCols; o++) {
              for (var i = 0; i < options.columns.length; i++) {
                 if (options.columns[i] == options.header[o]) {
                    tmpRow[tmpRow.length] = formatData(options.header[o]);
+		   columnNumbers[columnCounter] = o;
+		   columnCounter++;
                 }
              }
           }       
@@ -50,13 +49,29 @@ jQuery.fn.table2CSV = function(options) {
     row2CSV(tmpRow);
 
     // actual data
-    jQuery(el).find('tr').each(function() {
-        var tmpRow = [];
-        jQuery(this).filter(':visible').find('td').each(function() {
-           if (jQuery(this).css('display') != 'none') tmpRow[tmpRow.length] = jQuery.trim(formatData(jQuery(this).html()));
-        });
-        row2CSV(tmpRow);
-    });
+    if (basic) {
+       jQuery(el).find('tr').each(function() {
+           var tmpRow = [];
+           jQuery(this).filter(':visible').find('td').each(function() {
+              if (jQuery(this).css('display') != 'none') {
+                 tmpRow[tmpRow.length] = jQuery.trim(formatData(jQuery(this).html()));
+              }
+           });
+           row2CSV(tmpRow);
+       });
+    } else {
+       jQuery(el).find('tr').each(function() {
+          var tmpRow = [];
+          var columnCounter = 0;
+          jQuery(this).filter(':visible').find('td').each(function() {
+             if ((jQuery(this).css('display') != 'none') && (columnCounter in columnNumbers)) {
+                tmpRow[tmpRow.length] = jQuery.trim(formatData(jQuery(this).html()));
+             }
+             columnCounter++;
+          });
+          row2CSV(tmpRow);
+       });
+    }
     if ((options.delivery == 'popup')||(options.delivery == 'download')) {
         var mydata = csvData.join('\n');
         return popup(mydata);
