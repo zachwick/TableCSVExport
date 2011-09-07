@@ -8,26 +8,43 @@ jQuery.fn.table2CSV = function(options) {
     var options = jQuery.extend({
         separator: ',',
         header: [],
-        delivery: 'popup' // popup, value, download
+        columns: [],
+        delivery: 'popup' /* popup, value, download */
     },
     options);
 
     var csvData = [];
     var headerArr = [];
     var el = this;
+    var basic = options.columns.length == 0 ? true : false;
+    console.log(options.columns.length);
+
+    console.log(options.header);
+    console.log(options.columns);
 
     //header
-    var numCols = options.header.length;
+    var numCols = options.header.length; 
     var tmpRow = []; // construct header avalible array
 
     if (numCols > 0) {
-        for (var i = 0; i < numCols; i++) {
-            tmpRow[tmpRow.length] = formatData(options.header[i]);
-        }
+       if (basic) {
+          for (var i = 0; i < numCols; i++) {
+             tmpRow[tmpRow.length] = formatData(options.header[i]);
+          }
+       } else if (!basic) {
+	  console.log("In here - not basic");
+          for (var o = 0; o < numCols; o++) {
+             for (var i = 0; i < options.columns.length; i++) {
+                if (options.columns[i] == options.header[o]) {
+                   tmpRow[tmpRow.length] = formatData(options.header[o]);
+                }
+             }
+          }       
+       }
     } else {
-        jQuery(el).filter(':visible').find('th').each(function() {
-            if (jQuery(this).css('display') != 'none') tmpRow[tmpRow.length] = formatData(jQuery(this).html());
-        });
+       jQuery(el).filter(':visible').find('th').each(function() {
+          if (jQuery(this).css('display') != 'none') tmpRow[tmpRow.length] = formatData(jQuery(this).html());
+       });
     }
 
     row2CSV(tmpRow);
@@ -36,7 +53,7 @@ jQuery.fn.table2CSV = function(options) {
     jQuery(el).find('tr').each(function() {
         var tmpRow = [];
         jQuery(this).filter(':visible').find('td').each(function() {
-            if (jQuery(this).css('display') != 'none') tmpRow[tmpRow.length] = jQuery.trim(formatData(jQuery(this).html()));
+           if (jQuery(this).css('display') != 'none') tmpRow[tmpRow.length] = jQuery.trim(formatData(jQuery(this).html()));
         });
         row2CSV(tmpRow);
     });

@@ -57,13 +57,7 @@
     </tr>    
   </table>
 </body>
-<script src='jquery-1.6.2.min.js'></script>
-<script src='jquery.table2CSV.js'></script>
-<script>
-jQuery(document).ready(function() {
-     jQuery('#test-table').table2CSV({
-       header:['Name','Mon','Tue','Wed','Thr','Fri','Sat','Sun'],
-       columns:['Name','Mon']
-     });
-});
+
+<script src='jquery.table2CSV.js' type='text/javascript'>
+  jQuery('#test-table').table2CSV({header:['Name','Mon','Tue','Wed','Thr','Fri','Sat','Sun'],delivery:'popup'});
 </script>
