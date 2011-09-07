@@ -1,0 +1,70 @@
+<head>
+  <title></title>
+</head>
+<body>
+  <table id='test-table'>
+    <thead>
+      <tr>
+	<th>Name</th>
+	<th>Mon</th>
+        <th>Tue</th>
+	<th>Wed</th>
+	<th>Thr</th>
+	<th>Fri</th>
+	<th>Sat</th>
+	<th>Sun</th>
+      </tr>
+    </thead>
+    <tr>
+      <td>Zach</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Mark</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>Brett</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>Kiran</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>    
+  </table>
+</body>
+<script src='jquery-1.6.2.min.js'></script>
+<script src='jquery.table2CSV.js'></script>
+<script>
+jQuery(document).ready(function() {
+     console.log("Firing Now...");
+     jQuery('#test-table').table2CSV({
+       header:['Name','Mon','Tue','Wed','Thr','Fri','Sat','Sun']
+     });
+     console.log("Done Firing...");
+});
+</script>
