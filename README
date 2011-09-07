@@ -11,3 +11,20 @@ The above copyright notice and this permission notice shall be included in all c
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
          
+
+Dependencies:
+   This plugin was developed using jQuery 1.6.2 and is not tested with other versions
+
+Usage:
+   Include a line such as:
+      <pre>
+	<script src='jquery.table2CSV.js'></script>
+      </pre>
+   In your HTML and then once your HTML table is generated and populated (using appropriate <table>,<thead>,<th>,<tr>,<td>,etc. tags) simply use:
+      <pre>
+         jQuery('#table-id-here').table2CSV();
+      </pre> 
+   for basic use.
+
+
+
