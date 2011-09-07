@@ -73,7 +73,8 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 jQuery(document).ready(function() {
      jQuery('#test-table').table2CSV({
        header:['Name','Mon','Tue','Wed','Thr','Fri','Sat','Sun'],
-       columns:['Name','Mon']
+       columns:['Name','Mon'],
+       delivery: 'download'
      });
 });
 </script>
