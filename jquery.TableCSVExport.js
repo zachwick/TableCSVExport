@@ -14,6 +14,9 @@ jQuery.fn.TableCSVExport = function(options) {
         separator: ',',
         header: [],
         columns: [],
+        extraHeader: "",
+	extraData: [],
+	insertBefore: "",
         delivery: 'popup' /* popup, value, download */
     },
     options);
@@ -22,16 +25,21 @@ jQuery.fn.TableCSVExport = function(options) {
     var headerArr = [];
     var el = this;
     var basic = options.columns.length == 0 ? true : false;
+    var extra = options.extraData.length != 0 ? true : false;
     var columnNumbers = [];
     var columnCounter = 0;
-
+    var insertBeforeNum = null;
     //header
     var numCols = options.header.length; 
     var tmpRow = []; // construct header avalible array
-
+   
     if (numCols > 0) {
        if (basic) {
           for (var i = 0; i < numCols; i++) {
+	      if (options.header[i] == options.insertBefore) {
+		  tmpRow[tmpRow.length] = options.extraHeader;
+		  insertBeforeNum = i;
+	      }
              tmpRow[tmpRow.length] = formatData(options.header[i]);
           }
        } else if (!basic) {
@@ -55,14 +63,21 @@ jQuery.fn.TableCSVExport = function(options) {
 
     // actual data
     if (basic) {
+       var trCounter = 0;
        jQuery(el).find('tr').each(function() {
            var tmpRow = [];
+	   var extraDataCounter = 0;
            jQuery(this).filter(':visible').find('td').each(function() {
+              if (extraDataCounter == insertBeforeNum) {
+		  tmpRow[tmpRow.length] = jQuery.trim(options.extraData[trCounter-1]);
+	      }
               if (jQuery(this).css('display') != 'none') {
                  tmpRow[tmpRow.length] = jQuery.trim(formatData(jQuery(this).html()));
               }
+              extraDataCounter++;
            });
            row2CSV(tmpRow);
+           trCounter++;
        });
     } else {
        jQuery(el).find('tr').each(function() {
