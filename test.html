@@ -73,11 +73,11 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 jQuery(document).ready(function() {
      jQuery('#test-table').TableCSVExport({
        header:['Name','Mon','Tue','Wed','Thr','Fri','Sat','Sun'],
-       /*columns:['Name','Mon'],*/
+       columns:['Name','Sat','Sun'],
        extraHeader: 'Id',
        extraData:['zwick','markatto','bcsquire','ksingri'],
-       insertBefore: 'Name',
-       delivery: 'download'
+       insertBefore: "Name",
+       delivery: 'popup'
      });
 });
 </script>

@@ -25,7 +25,6 @@ jQuery.fn.TableCSVExport = function(options) {
     var headerArr = [];
     var el = this;
     var basic = options.columns.length == 0 ? true : false;
-    var extra = options.extraData.length != 0 ? true : false;
     var columnNumbers = [];
     var columnCounter = 0;
     var insertBeforeNum = null;
@@ -46,6 +45,10 @@ jQuery.fn.TableCSVExport = function(options) {
           for (var o = 0; o < numCols; o++) {
              for (var i = 0; i < options.columns.length; i++) {
                 if (options.columns[i] == options.header[o]) {
+                   if (options.columns[i] == options.insertBefore) {
+		      tmpRow[tmpRow.length] = options.extraHeader;
+                      insertBeforeNum = o;
+		   }
                    tmpRow[tmpRow.length] = formatData(options.header[o]);
 		   columnNumbers[columnCounter] = o;
 		   columnCounter++;
@@ -80,16 +83,23 @@ jQuery.fn.TableCSVExport = function(options) {
            trCounter++;
        });
     } else {
+       var trCounter = 0;
        jQuery(el).find('tr').each(function() {
           var tmpRow = [];
           var columnCounter = 0;
+	  var extraDataCounter = 0;
           jQuery(this).filter(':visible').find('td').each(function() {
+	     if ((columnCounter in columnNumbers) && (extraDataCounter == insertBeforeNum)) {
+		tmpRow[tmpRow.length] = jQuery.trim(options.extraData[trCounter - 1]); 
+	     }
              if ((jQuery(this).css('display') != 'none') && (columnCounter in columnNumbers)) {
                 tmpRow[tmpRow.length] = jQuery.trim(formatData(jQuery(this).html()));
              }
              columnCounter++;
+	     extraDataCounter++;
           });
           row2CSV(tmpRow);
+           trCounter++;
        });
     }
     if ((options.delivery == 'popup')||(options.delivery == 'download')) {
