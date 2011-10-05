@@ -75,7 +75,11 @@ jQuery.fn.TableCSVExport = function(options) {
 		  tmpRow[tmpRow.length] = jQuery.trim(options.extraData[trCounter-1]);
 	      }
               if (jQuery(this).css('display') != 'none') {
-                 tmpRow[tmpRow.length] = jQuery.trim(formatData(jQuery(this).html()));
+		  if (jQuery(this).html() == "") {
+		      tmpRow[tmpRow.length] = formatData("0");
+		  } else {
+                     tmpRow[tmpRow.length] = jQuery.trim(formatData(jQuery(this).html()));
+		  }
               }
               extraDataCounter++;
            });
