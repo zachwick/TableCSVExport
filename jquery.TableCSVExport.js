@@ -77,7 +77,9 @@ jQuery.fn.TableCSVExport = function(options) {
               if (jQuery(this).css('display') != 'none') {
 		  if (jQuery(this).html() == "") {
 		      tmpRow[tmpRow.length] = formatData("0");
-		  } else {
+		  } else if () {
+		      tmpRow[tmpRow.length] = formatData("0");
+                  } else {
                      tmpRow[tmpRow.length] = jQuery.trim(formatData(jQuery(this).html()));
 		  }
               }
