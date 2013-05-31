@@ -51,7 +51,20 @@ Example: [code] jQuery('#table-id').TableCSVExport({header:['Name','Mon','Tue','
 
 This will export only the 'Name' and 'Mon' columns as CSV data.
 
- 
+
+emptyValue (Default: '')
+
+Column default value if the column is empty.
+
+showHiddenRows (Default: false)
+
+if it's true, will export rows with display: 'none'.
+
+rowFilter (Default: '')
+
+You can add jquery selector filter, to filter table rows.
+
+Ex: rowFilter: '.myClass'
 
 Important Notes:
 
