@@ -39,7 +39,7 @@ jQuery.fn.TableCSVExport = function (options) {
         if (basic) {
             for (var i = 0; i < numCols; i++) {
                 if (options.header[i] == options.insertBefore) {
-                    tmpRow[tmpRow.length] = options.extraHeader;
+                    tmpRow[tmpRow.length] = formatData(options.extraHeader);
                     insertBeforeNum = i;
                 }
                 tmpRow[tmpRow.length] = formatData(options.header[i]);
@@ -49,7 +49,7 @@ jQuery.fn.TableCSVExport = function (options) {
                 for (var i = 0; i < options.columns.length; i++) {
                     if (options.columns[i] == options.header[o]) {
                         if (options.columns[i] == options.insertBefore) {
-                            tmpRow[tmpRow.length] = options.extraHeader;
+                            tmpRow[tmpRow.length] = formatData(options.extraHeader);
                             insertBeforeNum = o;
                         }
                         tmpRow[tmpRow.length] = formatData(options.header[o]);
@@ -97,7 +97,7 @@ jQuery.fn.TableCSVExport = function (options) {
             var extraDataCounter = 0;
             getAvailableElements(this).find('td').each(function () {
                 if ((columnCounter in columnNumbers) && (extraDataCounter == insertBeforeNum)) {
-                    tmpRow[tmpRow.length] = jQuery.trim(options.extraData[trCounter - 1]);
+                    tmpRow[tmpRow.length] = jQuery.trim(formatData(options.extraData[trCounter - 1]));
                 }
                 if ((jQuery(this).css('display') != 'none' || options.showHiddenRows) && (columnCounter in columnNumbers)) {
                     tmpRow[tmpRow.length] = jQuery.trim(formatData(jQuery(this).html()));
@@ -139,9 +139,9 @@ jQuery.fn.TableCSVExport = function (options) {
         }
     }
     function formatData(input) {
-        // mask " with \
+        // mask " with "
         var regexp = new RegExp(/["]/g); //"
-        var output = input.replace(regexp, '\\\"');
+        var output = input.replace(regexp, '""');
         // TODO: mask \""; at the end, so openoffice can open it correctly
         
         // strip HTML
