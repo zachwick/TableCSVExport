@@ -139,14 +139,18 @@ jQuery.fn.TableCSVExport = function (options) {
         }
     }
     function formatData(input) {
-        // replace " with “
-        var regexp = new RegExp(/["]/g);
-        var output = input.replace(regexp, "“");
-        //HTML
-        var regexp = new RegExp(/\<[^\<]+\>/g);
-        var output = output.replace(regexp, "");
+        // mask " with \
+        var regexp = new RegExp(/["]/g); //"
+        var output = input.replace(regexp, '\\\"');
+        // TODO: mask \""; at the end, so openoffice can open it correctly
+        
+        // strip HTML
+        output = output.replace("<br>"," ");
+        if(!( output != null && typeof output === 'object')) output = "<span>"+output+"</span>"; // to be able to use jquery
+        output = $(output).text().trim();
+        
         if (output == "") return '';
-        return '' + output + '';
+        return '"' + output + '"';
     }
     function popup(data) {
         if (options.delivery == 'download') {
