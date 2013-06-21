@@ -140,13 +140,13 @@ jQuery.fn.TableCSVExport = function (options) {
     }
     function formatData(input) {
         // replace " with “
-        var regexp = new RegExp(/["]/g);
+        var regexp = new RegExp(/["]/g); //"
         var output = input.replace(regexp, "“");
         //HTML
         var regexp = new RegExp(/\<[^\<]+\>/g);
         var output = output.replace(regexp, "");
         if (output == "") return '';
-        return '' + output + '';
+        return '"' + output + '"';
     }
     function popup(data) {
         if (options.delivery == 'download') {
