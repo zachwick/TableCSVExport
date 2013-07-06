@@ -41,8 +41,6 @@ An array containing strings of the column headers
 
 Example: [code] jQuery('#table-id').TableCSVExport({header:['Name','Mon','Tue','Wed','Thr','Fri']}) [/code]
 
- 
-
 columns (Default: [])
 
 An array containing strings consisting of the headers for the columns to export. This MUST be a subset of the array passed to the header option.
@@ -51,6 +49,9 @@ Example: [code] jQuery('#table-id').TableCSVExport({header:['Name','Mon','Tue','
 
 This will export only the 'Name' and 'Mon' columns as CSV data.
 
+-- WARNING --
+
+When using the columns option to only export certain columns, you must also set the header array and the columns array must be a subset of the header array.
 
 emptyValue (Default: '')
 
@@ -67,9 +68,7 @@ You can add jquery selector filter, to filter table rows.
 Ex: rowFilter: '.myClass'
 
 Important Notes:
+ 
+1. The javascript .trim() function is called on each table datum, so be aware that beginning or terminating whitespace will be lost.
 
-1. When using the columns option to only export certain columns, you must also set the header array and the columns array must be a subset of the header array.
-
-2. The javascript .trim() function is called on each table datum, so be aware that beginning or terminating whitespace will be lost.
-
-3. jquery.TableCSVExport.js is released under the MIT License and LectureTools Inc. retains all copyrights.
+2. jquery.TableCSVExport.js is released under the MIT License and LectureTools Inc. retains all copyrights.
