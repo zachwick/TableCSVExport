@@ -20,7 +20,8 @@ jQuery.fn.TableCSVExport = function (options) {
         delivery: 'popup' /* popup, value, download */,
         emptyValue: '',
         showHiddenRows: false,
-        rowFilter: ""
+        rowFilter: "",
+        filename: "download.csv"
     },
     options);
 
@@ -154,7 +155,12 @@ jQuery.fn.TableCSVExport = function (options) {
     }
     function popup(data) {
         if (options.delivery == 'download') {
-            window.location = 'data:text/csv;charset=utf8,' + encodeURIComponent(data);
+            var aLink = document.createElement('a');
+            var evt = document.createEvent("HTMLEvents");
+            evt.initEvent("click");
+            aLink.download = options.filename;
+            aLink.href = 'data:text/csv;charset=utf8,' + encodeURIComponent(data);
+            aLink.dispatchEvent(evt);
             return true;
         } else {
             var generator = window.open('', 'csv', 'height=400,width=600');
