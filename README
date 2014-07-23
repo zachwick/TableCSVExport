@@ -23,7 +23,6 @@ Options:
 
 separator (Default: ',')
 The character that separates entries in the resulting CSV file.
-
  
 
 delivery (Default: 'popup')
@@ -41,6 +40,7 @@ An array containing strings of the column headers
 
 Example: [code] jQuery('#table-id').TableCSVExport({header:['Name','Mon','Tue','Wed','Thr','Fri']}) [/code]
 
+
 columns (Default: [])
 
 An array containing strings consisting of the headers for the columns to export. This MUST be a subset of the array passed to the header option.
@@ -53,19 +53,37 @@ This will export only the 'Name' and 'Mon' columns as CSV data.
 
 When using the columns option to only export certain columns, you must also set the header array and the columns array must be a subset of the header array.
 
+
 emptyValue (Default: '')
 
 Column default value if the column is empty.
 
+
 showHiddenRows (Default: false)
 
 if it's true, will export rows with display: 'none'.
+
 
 rowFilter (Default: '')
 
 You can add jquery selector filter, to filter table rows.
 
 Ex: rowFilter: '.myClass'
+
+
+filename (Default: 'download.csv')
+
+Choose what the downloaded filename will be when using the 'download' delivery. Currently only reliable in Chrome.
+
+Example usage on a download button:
+$('#download-btn').click(function (e) {
+    e.preventDefault();
+    $('#my-table').TableCSVExport({
+        delivery: 'download',
+        filename: 'device-usage.csv'
+    });
+});
+
 
 Important Notes:
  
