@@ -34,6 +34,12 @@ The manner in which to return the CSV data file. Options are:
 'download' - triggers a download of a file containing the CSV data
  
 
+useTHead (Default: false)
+
+By default column headers are found by looking for th elements within the table.
+
+If useTHead is true the header and row lookup is changed. Column headers are found by looking for th's and td's within a thead element. Cell content is found by looking for th's and td's within a tbody element.
+
 header (Default: [])
 
 An array containing strings of the column headers

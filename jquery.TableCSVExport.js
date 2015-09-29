@@ -20,8 +20,9 @@ jQuery.fn.TableCSVExport = function (options) {
         delivery: 'popup' /* popup, value, download */,
         emptyValue: '',
         showHiddenRows: false,
-	    rowFilter: "",
-	    filename: "download.csv"
+        rowFilter: "",
+        filename: "download.csv",
+        useTHead: false
     },
     options);
 
@@ -61,7 +62,7 @@ jQuery.fn.TableCSVExport = function (options) {
             }
         }
     } else {
-        getAvailableElements(el).find('th').each(function () {
+        getAvailableElements(el).find(options.useTHead ? 'thead th, thead td' : 'th').each(function () {
             if (jQuery(this).css('display') != 'none' || options.showHiddenRows) tmpRow[tmpRow.length] = formatData(jQuery(this).html());
         });
     }
@@ -74,7 +75,7 @@ jQuery.fn.TableCSVExport = function (options) {
         getAvailableRows(el).each(function () {
             var tmpRow = [];
             var extraDataCounter = 0;
-            getAvailableElements(this).find('td').each(function () {
+            getAvailableElements(this).find(options.useTHead ? 'th, td' : 'td').each(function () {
                 if (extraDataCounter == insertBeforeNum) {
                     tmpRow[tmpRow.length] = jQuery.trim(options.extraData[trCounter - 1]);
                 }
@@ -96,7 +97,7 @@ jQuery.fn.TableCSVExport = function (options) {
             var tmpRow = [];
             var columnCounter = 0;
             var extraDataCounter = 0;
-            getAvailableElements(this).find('td').each(function () {
+            getAvailableElements(this).find(options.useTHead ? 'th, td' : 'td').each(function () {
                 if ((columnCounter in columnNumbers) && (extraDataCounter == insertBeforeNum)) {
                     tmpRow[tmpRow.length] = jQuery.trim(formatData(options.extraData[trCounter - 1]));
                 }
@@ -112,7 +113,7 @@ jQuery.fn.TableCSVExport = function (options) {
     }
 
     function getAvailableRows(el) {
-        return jQuery(el).find('tr' + options.rowFilter);
+        return jQuery(el).find((options.useTHead ? 'tbody tr' : 'tr') + options.rowFilter);
     }
 
     function getAvailableElements(el) {
