@@ -77,7 +77,19 @@ jQuery(document).ready(function() {
        extraHeader: 'Id',
        extraData:['zwi"ck','markatto','bcsquire','ksingri'],
        insertBefore: "Name",
-       delivery: 'popup'
+       delivery: 'download',
+       filename: 'download-test.csv'
+     });
+});
+jQuery(document).ready(function() {
+     jQuery('#test-table').TableCSVExport({
+       header:['Name','Mon','Tue','Wed','Thr','Fri','Sat','Sun'],
+       columns:['Name','Sat','Sun'],
+       extraHeader: 'Id',
+       extraData:['zwi"ck','markatto','bcsquire','ksingri'],
+       insertBefore: "Name",
+       delivery: 'popup',
+       filename: 'download-test.csv'
      });
 });
 </script>
